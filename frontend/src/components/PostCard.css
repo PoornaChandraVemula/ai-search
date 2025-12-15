@@ -1,0 +1,248 @@
+.post-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  cursor: default;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.post-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-card);
+  pointer-events: none;
+}
+
+.post-card:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: var(--shadow-card);
+}
+
+/* Header */
+.post-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.author-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--bg-primary);
+  flex-shrink: 0;
+}
+
+.author-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.author-name {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.verified-badge {
+  color: var(--accent-secondary);
+}
+
+.author-handle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.post-time {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+/* Content */
+.post-content {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  word-wrap: break-word;
+}
+
+.post-content.expanded {
+  cursor: default;
+}
+
+.post-content:not(.expanded) {
+  cursor: pointer;
+}
+
+.hashtag {
+  color: var(--accent-primary);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.hashtag:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.mention {
+  color: var(--accent-secondary);
+}
+
+.read-more {
+  color: var(--accent-primary);
+  font-weight: 500;
+}
+
+/* Grok Analysis */
+.grok-analysis {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.sentiment-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-xl);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: capitalize;
+  color: var(--sentiment-color);
+}
+
+.sentiment-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--sentiment-color);
+}
+
+.topics-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.topic-chip {
+  padding: 3px 10px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-xl);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.topic-chip:hover {
+  background: var(--bg-hover);
+  color: var(--accent-secondary);
+}
+
+/* Metrics */
+.post-metrics {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.metric {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+}
+
+.metric svg {
+  opacity: 0.7;
+}
+
+.metric.views {
+  margin-left: auto;
+}
+
+.metric.media-badge,
+.metric.link-badge {
+  padding: 4px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-sm);
+}
+
+.metric.media-badge svg {
+  color: var(--accent-tertiary);
+  opacity: 1;
+}
+
+.metric.link-badge svg {
+  color: var(--accent-secondary);
+  opacity: 1;
+}
+
+/* Relevance Bar */
+.relevance-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--bg-tertiary);
+}
+
+.relevance-fill {
+  height: 100%;
+  background: var(--gradient-primary);
+  transition: width 0.5s ease;
+}
+
+@media (max-width: 480px) {
+  .post-card {
+    padding: 16px;
+  }
+
+  .author-avatar {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+  }
+
+  .post-metrics {
+    gap: 12px;
+  }
+}
+

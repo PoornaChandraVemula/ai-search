@@ -1,0 +1,51 @@
+# Grok X Search - Development Docker Compose Configuration
+services:
+  # Backend API Service (Development)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: grok-xsearch-backend-dev
+    restart: unless-stopped
+    environment:
+      - XAI_API_KEY=${XAI_API_KEY:-}
+      - GROK_MODEL=${GROK_MODEL:-grok-3-latest}
+      - DATABASE_URL=sqlite:///./data/xsearch.db
+      - DEBUG=true
+    volumes:
+      - ./backend:/app
+      - backend-data-dev:/app/data
+    ports:
+      - "8000:8000"
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - grok-network-dev
+
+  # Frontend Web Application (Development)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development
+    container_name: grok-xsearch-frontend-dev
+    restart: unless-stopped
+    environment:
+      - VITE_API_URL=http://backend:8000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "4000:3000"
+    depends_on:
+      - backend
+    networks:
+      - grok-network-dev
+
+networks:
+  grok-network-dev:
+    driver: bridge
+
+volumes:
+  backend-data-dev:
+    driver: local
+
