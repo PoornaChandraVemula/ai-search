@@ -25,7 +25,11 @@ pipeline:
             shell: bash
             script: |-
               cd frontend
-              npm ci
+              if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then
+                npm ci
+              else
+                npm install
+              fi
           timeout: 5m
         - id: build_frontend
           name: Build Frontend
