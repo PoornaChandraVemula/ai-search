@@ -1,0 +1,39 @@
+pipeline:
+  id: pipeline_PoornaChandraVemula_ai_search_build_180b
+  name: pipeline_PoornaChandraVemula_ai_search_build_180b
+  stages:
+    - id: build
+      name: Build
+      runtime: cloud
+      clone:
+        enabled: true
+      cache:
+        enabled: true
+      steps:
+        - id: install_backend_deps
+          name: Install Backend Dependencies
+          run:
+            shell: bash
+            script: |-
+              cd backend
+              python3 -m pip install --upgrade pip
+              pip install -r requirements.txt
+          timeout: 15m
+        - id: install_frontend_deps
+          name: Install Frontend Dependencies
+          run:
+            shell: bash
+            script: |-
+              cd frontend
+              npm ci
+          timeout: 5m
+        - id: build_frontend
+          name: Build Frontend
+          run:
+            shell: bash
+            script: |-
+              cd frontend
+              npm run build
+          timeout: 5m
+  tags:
+    onboarding: "true"
